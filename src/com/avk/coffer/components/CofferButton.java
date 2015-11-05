@@ -1,4 +1,4 @@
-package com.avk.coffer;
+package com.avk.coffer.components;
 
 import java.awt.Color;
 import java.awt.Cursor;
@@ -6,6 +6,9 @@ import java.awt.Dimension;
 
 import javax.swing.JLabel;
 import javax.swing.SwingConstants;
+
+import com.avk.coffer.CofferReferences;
+import com.avk.coffer.CofferRoundBorder;
 
 @SuppressWarnings("serial")
 public class CofferButton extends JLabel {

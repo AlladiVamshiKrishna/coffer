@@ -1,4 +1,4 @@
-package com.avk.coffer;
+package com.avk.coffer.components;
 
 import java.awt.Color;
 import java.awt.Dimension;
@@ -13,6 +13,10 @@ import javax.swing.JPanel;
 import javax.swing.JPasswordField;
 import javax.swing.border.EmptyBorder;
 import javax.swing.border.MatteBorder;
+
+import com.avk.coffer.CofferReferences;
+import com.avk.coffer.components.listeners.CofferPasswordBlankEditListener;
+
 import java.awt.BorderLayout;
 
 @SuppressWarnings("serial")
@@ -50,11 +54,19 @@ public class CofferPasswordBlank extends JPanel {
 		passwordToggleImg.addMouseListener(new MouseAdapter() {
 
 			@Override
-			public void mouseClicked(MouseEvent e) {
-				isPasswordHidden = !isPasswordHidden;
-				passwordField.setEchoChar(isPasswordHidden ? '#' : (char) 0);
-				passwordToggleImg.setIcon(isPasswordHidden ? CofferReferences.SHOW : CofferReferences.HIDE);
+			public void mousePressed(MouseEvent e) {
+				isPasswordHidden = false;
+				passwordField.setEchoChar((char) 0);
+				passwordToggleImg.setIcon(CofferReferences.HIDE);
 			}
+
+			@Override
+			public void mouseReleased(MouseEvent e) {
+				isPasswordHidden = true;
+				passwordField.setEchoChar('#');
+				passwordToggleImg.setIcon(CofferReferences.SHOW);
+			}
+
 		});
 		passwordToggleImg.setBounds(width - 35, 0, 30, 30);
 		passwordToggleImg.setVisible((password != null) ? true : false);

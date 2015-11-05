@@ -79,8 +79,7 @@ public class CofferPasswordEntry {
 
 				CofferCrypt.encrypt2File_Index(CofferCrypt.getCofferKeyIndex(), user_coffer, new File("./Coffer/user's.coffer"));
 
-				CofferCrypt.encrypt2File_Index(index, fileNo + "|" + title + "|" + url + "|" + username + "|" + password, new File("./Coffer/"
-						+ fileNo + ".cofferpass"));
+				CofferCrypt.encrypt2File_Index(index, fileNo + "|" + title + "|" + url + "|" + username + "|" + password, new File("./Coffer/" + fileNo + ".cofferpass"));
 			} else {
 
 				String user_coffer = CofferCrypt.decryptFromFile_Index(CofferCrypt.getCofferKeyIndex(), new File("./Coffer/user's.coffer"));
@@ -90,8 +89,7 @@ public class CofferPasswordEntry {
 					StringTokenizer st = new StringTokenizer(cofferTokens.nextToken(), "|");
 
 					if (st.nextToken().equals(id)) {
-						CofferCrypt.encrypt2File_Index(Integer.parseInt(st.nextToken()), id + "|" + title + "|" + url + "|" + username + "|"
-								+ password, new File("./Coffer/" + id + ".cofferpass"));
+						CofferCrypt.encrypt2File_Index(Integer.parseInt(st.nextToken()), id + "|" + title + "|" + url + "|" + username + "|" + password, new File("./Coffer/" + id + ".cofferpass"));
 						break;
 					}
 				}

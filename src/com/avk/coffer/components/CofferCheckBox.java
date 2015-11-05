@@ -1,9 +1,11 @@
-package com.avk.coffer;
+package com.avk.coffer.components;
 
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 
 import javax.swing.JLabel;
+
+import com.avk.coffer.CofferReferences;
 
 @SuppressWarnings("serial")
 public class CofferCheckBox extends JLabel {

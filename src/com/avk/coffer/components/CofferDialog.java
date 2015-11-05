@@ -1,4 +1,4 @@
-package com.avk.coffer;
+package com.avk.coffer.components;
 
 import java.awt.Color;
 import java.awt.Dialog;
@@ -19,6 +19,10 @@ import javax.swing.JScrollBar;
 import javax.swing.JScrollPane;
 import javax.swing.ScrollPaneConstants;
 import javax.swing.SwingConstants;
+
+import com.avk.coffer.Coffer;
+import com.avk.coffer.CofferReferences;
+import com.avk.coffer.CofferScrollbarUI;
 
 @SuppressWarnings("serial")
 public class CofferDialog extends JDialog {

@@ -8,7 +8,6 @@ import java.awt.datatransfer.StringSelection;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 import java.io.File;
-import java.io.IOException;
 import java.net.URI;
 import java.util.StringTokenizer;
 
@@ -18,10 +17,13 @@ import javax.swing.JPanel;
 import javax.swing.SwingConstants;
 import javax.swing.SwingUtilities;
 
+import com.avk.coffer.components.CofferDialog;
+import com.avk.coffer.components.CofferPopupFrame;
+
 @SuppressWarnings("serial")
 public class CofferPasswordEntryElement extends JPanel {
 
-	private JLabel entry, launch, edit, delete;
+	private JLabel entry, launch, export, delete;
 	private JPanel optionsPanel;
 	private JPanel entryPanel;
 
@@ -82,6 +84,27 @@ public class CofferPasswordEntryElement extends JPanel {
 		optionsPanel.setVisible(false);
 		optionsPanel.setOpaque(false);
 
+		export = new JLabel(CofferReferences.EXPORT);
+		export.addMouseListener(new MouseAdapter() {
+
+			@Override
+			public void mouseEntered(MouseEvent arg0) {
+				optionsPanel.setVisible(true);
+			}
+
+			@Override
+			public void mouseExited(MouseEvent arg0) {
+				optionsPanel.setVisible(false);
+			}
+
+			@Override
+			public void mouseClicked(MouseEvent e) {
+				CofferPopupFrame cpf = new CofferPopupFrame(Coffer.frmcoffer, true, new Dimension(500, 500));
+				cpf.setVisible(true);
+			}
+		});
+		optionsPanel.add(export);
+
 		launch = new JLabel(CofferReferences.LAUNCH);
 		launch.addMouseListener(new MouseAdapter() {
 
@@ -103,7 +126,7 @@ public class CofferPasswordEntryElement extends JPanel {
 					if (!url.equals("no_url"))
 						Desktop.getDesktop().browse(URI.create(url));
 
-				} catch (IOException e1) {
+				} catch (Exception e1) {
 					e1.printStackTrace();
 				}
 			}
@@ -111,26 +134,6 @@ public class CofferPasswordEntryElement extends JPanel {
 		});
 		if (!p.getUrl().equals("no_url"))
 			optionsPanel.add(launch);
-
-		edit = new JLabel(CofferReferences.EDIT);
-		edit.addMouseListener(new MouseAdapter() {
-
-			@Override
-			public void mouseEntered(MouseEvent arg0) {
-				optionsPanel.setVisible(true);
-			}
-
-			@Override
-			public void mouseExited(MouseEvent arg0) {
-				optionsPanel.setVisible(false);
-			}
-
-			@Override
-			public void mouseClicked(MouseEvent e) {
-				new CofferPasswordDisplayFrame(p);
-			}
-		});
-		// optionsPanel.add(edit);
 
 		delete = new JLabel(CofferReferences.DELETE);
 		delete.addMouseListener(new MouseAdapter() {
@@ -150,11 +153,12 @@ public class CofferPasswordEntryElement extends JPanel {
 				try {
 
 					String[] msgs = { "You are about to delete \"" + p.getTitle() + "\" entry.", "Do you want to continue?" };
+					Coffer.setDisable(true);
 					CofferDialog deleteDialog = new CofferDialog(Coffer.frmcoffer, true, "Delete Confirmation", msgs, CofferDialog.YES_NO_OPTIONS);
+					Coffer.setDisable(false);
 
 					if (deleteDialog.selectedOption == CofferDialog.YES_OPTION) {
-						String new_user_coffer = "", user_coffer = CofferCrypt.decryptFromFile_Index(CofferCrypt.getCofferKeyIndex(), new File(
-								"./Coffer/user's.coffer"));
+						String new_user_coffer = "", user_coffer = CofferCrypt.decryptFromFile_Index(CofferCrypt.getCofferKeyIndex(), new File("./Coffer/user's.coffer"));
 						StringTokenizer st = new StringTokenizer(user_coffer, "\n");
 
 						while (st.hasMoreTokens()) {

@@ -25,6 +25,8 @@ import javax.swing.JPanel;
 import javax.swing.SwingConstants;
 import javax.swing.border.MatteBorder;
 
+import com.avk.coffer.components.CofferDialog;
+
 public class Coffer {
 
 	public static JFrame frmcoffer;
@@ -50,9 +52,6 @@ public class Coffer {
 	private static final int frameWidth = CofferSettings.COFFER_FRAME_SIZE.width;
 	private static final int frameHeight = CofferSettings.COFFER_FRAME_SIZE.height;
 
-	/**
-	 * Launch the application.
-	 */
 	public static void main(String[] args) {
 		EventQueue.invokeLater(new Runnable() {
 			public void run() {
@@ -75,16 +74,8 @@ public class Coffer {
 		});
 	}
 
-	/**
-	 * Create the application.
-	 */
-	public Coffer() {
-		initialize();
-	}
+	public Coffer() { initialize(); }
 
-	/**
-	 * Initialize the contents of the frame.
-	 */
 	private void initialize() {
 		try {
 			if (SystemTray.isSupported()) {
@@ -185,7 +176,7 @@ public class Coffer {
 					String[] msgs = { "Your Coffer will be locked in a minute.", "Do you want to lock it right away?" };
 					setDisable(true);
 					CofferDialog lockDialog = new CofferDialog(Coffer.frmcoffer, true, "Lock Confirmation", msgs, CofferDialog.YES_NO_CANCEL_OPTIONS);
-					setDisable(true);
+					setDisable(false);
 
 					switch (lockDialog.selectedOption) {
 						case CofferDialog.YES_OPTION: {

@@ -10,6 +10,8 @@ import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.border.LineBorder;
 
+import com.avk.coffer.components.CofferButton;
+
 @SuppressWarnings("serial")
 public class CofferExtraInstance extends JDialog {
 

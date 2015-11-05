@@ -13,6 +13,11 @@ import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.SwingConstants;
 
+import com.avk.coffer.components.CofferButton;
+import com.avk.coffer.components.CofferDialog;
+import com.avk.coffer.components.CofferPasswordField;
+import com.avk.coffer.components.CofferTextField;
+
 @SuppressWarnings("serial")
 public class LoginPage extends JPanel {
 	private CofferTextField usernameField;

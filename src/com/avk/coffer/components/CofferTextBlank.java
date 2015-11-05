@@ -1,4 +1,4 @@
-package com.avk.coffer;
+package com.avk.coffer.components;
 
 import java.awt.BorderLayout;
 import java.awt.Color;
@@ -13,6 +13,9 @@ import javax.swing.JPanel;
 import javax.swing.JTextField;
 import javax.swing.border.EmptyBorder;
 import javax.swing.border.MatteBorder;
+
+import com.avk.coffer.CofferReferences;
+import com.avk.coffer.components.listeners.CofferTextBlankEditListener;
 
 @SuppressWarnings("serial")
 public class CofferTextBlank extends JPanel {
@@ -48,7 +51,7 @@ public class CofferTextBlank extends JPanel {
 		blank.setBorder(new MatteBorder(0, 2, 2, 2, (Color) CofferReferences.CofferBlue));
 		panel.add(blank);
 
-		textField = new JTextField(text);
+		textField = new JTextField(text != null ? text : placeHolder);
 		textField.setSelectedTextColor(CofferReferences.CofferLightGrey);
 		textField.setSelectionColor(CofferReferences.CofferBlue);
 		textField.addKeyListener(new KeyAdapter() {
@@ -66,6 +69,7 @@ public class CofferTextBlank extends JPanel {
 		textField.setCaretColor(CofferReferences.CofferVeryLightGrey);
 		textField.setBounds(0, 0, width, 30);
 		textField.setOpaque(false);
+		textField.setCaretPosition(0);
 		textField.setBackground((Color) null);
 		textField.setBorder(new EmptyBorder(0, 15, 0, 0));
 		panel.add(textField);

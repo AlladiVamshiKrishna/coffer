@@ -1,4 +1,4 @@
-package com.avk.coffer;
+package com.avk.coffer.components;
 
 import java.awt.Color;
 import java.awt.Dimension;
@@ -9,6 +9,8 @@ import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.JTextField;
 import javax.swing.SwingConstants;
+
+import com.avk.coffer.CofferReferences;
 
 @SuppressWarnings("serial")
 public class CofferNumberField extends JPanel {

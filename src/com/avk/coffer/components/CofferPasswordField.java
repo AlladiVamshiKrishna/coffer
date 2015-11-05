@@ -1,4 +1,4 @@
-package com.avk.coffer;
+package com.avk.coffer.components;
 
 import java.awt.Color;
 import java.awt.Dimension;
@@ -15,6 +15,9 @@ import javax.swing.JPanel;
 import javax.swing.JPasswordField;
 import javax.swing.SwingConstants;
 import javax.swing.border.EmptyBorder;
+
+import com.avk.coffer.CofferReferences;
+import com.avk.coffer.CofferRoundBorder;
 
 @SuppressWarnings("serial")
 public class CofferPasswordField extends JPanel {
@@ -85,11 +88,26 @@ public class CofferPasswordField extends JPanel {
 		passwordToggleImg.addMouseListener(new MouseAdapter() {
 
 			@Override
-			public void mouseClicked(MouseEvent e) {
-				isPasswordHidden = !isPasswordHidden;
-				passwordField.setEchoChar(isPasswordHidden ? '#' : (char) 0);
-				passwordToggleImg.setIcon(isPasswordHidden ? CofferReferences.SHOW : CofferReferences.HIDE);
+			public void mousePressed(MouseEvent e) {
+				isPasswordHidden = false;
+				passwordField.setEchoChar((char) 0);
+				passwordToggleImg.setIcon(CofferReferences.HIDE);
 			}
+
+			@Override
+			public void mouseReleased(MouseEvent e) {
+				isPasswordHidden = true;
+				passwordField.setEchoChar('#');
+				passwordToggleImg.setIcon(CofferReferences.SHOW);
+			}
+
+			// @Override
+			// public void mouseClicked(MouseEvent e) {
+			// isPasswordHidden = !isPasswordHidden;
+			// passwordField.setEchoChar(isPasswordHidden? '#' : (char)0 );
+			// passwordToggleImg.setIcon(isPasswordHidden? CofferReferences.SHOW
+			// : CofferReferences.HIDE);
+			// }
 		});
 		passwordToggleImg.setBounds(280, 5, 30, 30);
 		passwordToggleImg.setVisible((password != null) ? true : false);

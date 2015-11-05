@@ -1,32 +1,27 @@
 package com.avk.coffer;
 
-import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
-import java.awt.event.MouseMotionAdapter;
-import java.awt.event.WindowAdapter;
-import java.awt.event.WindowEvent;
 
 import javax.swing.JButton;
-import javax.swing.JDialog;
-import javax.swing.JLabel;
-import javax.swing.JLayeredPane;
 import javax.swing.JPanel;
-import javax.swing.SwingConstants;
-import javax.swing.border.EmptyBorder;
-import javax.swing.border.LineBorder;
-import java.awt.BorderLayout;
+
+import com.avk.coffer.components.CofferButton;
+import com.avk.coffer.components.CofferDialog;
+import com.avk.coffer.components.CofferPasswordBlank;
+import com.avk.coffer.components.CofferPopupFrame;
+import com.avk.coffer.components.CofferTextBlank;
+import com.avk.coffer.components.CofferToggleSwitch;
+import com.avk.coffer.components.listeners.CofferPasswordBlankEditListener;
+import com.avk.coffer.components.listeners.CofferTextBlankEditListener;
+import com.avk.coffer.components.listeners.CofferToggleSwitchListener;
 
 @SuppressWarnings("serial")
-public class CofferPasswordDisplayFrame extends JDialog {
-
-	private final JPanel popupFrame;
-	private int xPressed, yPressed;
+public class CofferPasswordDisplayFrame extends CofferPopupFrame {
 
 	private JPanel contentPanel;
-	private static JPanel disablePanel;
-	private static JLabel lblStatus;
+
 	private static JButton focusGrab;
 	private static CofferTextBlank titleBlank, usernameBlank, urlBlank;
 	private static CofferPasswordBlank passwordBlank, confirmPasswordBlank;
@@ -35,111 +30,24 @@ public class CofferPasswordDisplayFrame extends JDialog {
 
 	private String defaultStatus = "All the details of the entry are here Boss.";
 
-	private int frameWidth = 500, frameHeight = 550;
+	private static int frameWidth = 500, frameHeight = 550;
 
 	private boolean anyBlankEdited, titleEdited, urlEdited, usernameEdited, passwordEdited;
 
 	public CofferPasswordDisplayFrame(CofferPasswordEntry p) {
-		super(Coffer.frmcoffer, true);
+		super(Coffer.frmcoffer, true, new Dimension(frameWidth, frameHeight));
 
-		addWindowListener(new WindowAdapter() {
-			@Override
-			public void windowClosing(WindowEvent e) {
-				Coffer.setDisable(false);
-			}
-		});
-
-		setUndecorated(true);
-		setSize(frameWidth, frameHeight);
-
-		JLayeredPane frmContent = new JLayeredPane();
-		frmContent.setLocation(0, 0);
-		frmContent.setSize(new Dimension(frameWidth, frameHeight));
-		frmContent.setPreferredSize(new Dimension(frameWidth, frameHeight));
-
-		disablePanel = new JPanel();
-		disablePanel.setBackground(new Color(50, 50, 50, 100));
-		disablePanel.setBounds(0, 0, frameWidth, frameHeight);
-		disablePanel.setVisible(false);
-		disablePanel.addMouseListener(new MouseAdapter() {
-			@Override
-			public void mouseClicked(MouseEvent e) {
-				disablePanel.grabFocus();
-			}
-		});
-		frmContent.add(disablePanel);
-
-		popupFrame = new JPanel();
-		popupFrame.setBorder(new LineBorder(CofferReferences.CofferVeryLightGrey));
-		popupFrame.setBackground(CofferReferences.CofferLightGrey);
-		popupFrame.setSize(new Dimension(frameWidth, frameHeight));
-
-		JLayeredPane titleBar = new JLayeredPane();
-		titleBar.setPreferredSize(new Dimension(frameWidth - 2, 40));
-
-		JLabel lblX = new JLabel("X");
-		lblX.setForeground(Color.WHITE);
-		lblX.setFont(CofferReferences.Antipasto_Bold_15);
-		lblX.setHorizontalAlignment(SwingConstants.CENTER);
-		lblX.setHorizontalTextPosition(SwingConstants.CENTER);
-		lblX.setBounds(frameWidth - 35, 5, 30, 30);
-		lblX.addMouseListener(new MouseAdapter() {
-			@Override
-			public void mouseClicked(MouseEvent e) {
-				Coffer.setDisable(false);
-				CofferPasswordDisplayFrame.this.dispose();
-			}
-
-			@Override
-			public void mouseEntered(MouseEvent e) {
-				lblX.setForeground(CofferReferences.CofferBlue);
-			}
-
-			@Override
-			public void mouseExited(MouseEvent e) {
-				lblX.setForeground(Color.WHITE);
-			}
-		});
-
-		titleBar.add(lblX);
-
-		JLabel titleLbl = new JLabel(p.getTitle() + " Entry");
-		titleLbl.setOpaque(true);
-		titleLbl.setBorder(new EmptyBorder(0, 25, 0, 0));
-		titleLbl.setSize(new Dimension(frameWidth, 40));
-		titleLbl.setBackground(CofferReferences.CofferDarkGrey);
-		titleLbl.setForeground(Color.WHITE);
-		titleLbl.setFont(CofferReferences.Comfortaa_Bold_Italic_16);
-		titleLbl.addMouseListener(new MouseAdapter() {
-			@Override
-			public void mousePressed(MouseEvent e) {
-				xPressed = e.getX();
-				yPressed = e.getY();
-			}
-		});
-		titleLbl.addMouseMotionListener(new MouseMotionAdapter() {
-			@Override
-			public void mouseDragged(MouseEvent e) {
-				int x = e.getXOnScreen();
-				int y = e.getYOnScreen();
-
-				CofferPasswordDisplayFrame.this.setLocation((x - xPressed), (y - yPressed));
-			}
-		});
-
-		titleBar.add(titleLbl);
-
-		focusGrab = new JButton("");
-		focusGrab.setBounds(0, 0, 0, 0);
-		focusGrab.grabFocus();
-		popupFrame.setLayout(new BorderLayout(0, 0));
-		titleBar.add(focusGrab);
-
-		popupFrame.add(titleBar, BorderLayout.NORTH);
+		setTitle(p.getTitle() + " Details");
+		setStatus(defaultStatus);
 
 		contentPanel = new JPanel();
 		contentPanel.setOpaque(false);
 		contentPanel.setLayout(null);
+
+		focusGrab = new JButton("");
+		focusGrab.setBounds(0, 0, 0, 0);
+		focusGrab.grabFocus();
+		contentPanel.add(focusGrab);
 
 		editSwitch = new CofferToggleSwitch("Edit");
 		editSwitch.setBounds(frameWidth - 100, 30, 80, 20);
@@ -158,8 +66,7 @@ public class CofferPasswordDisplayFrame extends JDialog {
 					if (anyBlankEdited) {
 						String[] msgs = { "Your modifications will be discarded.", "Do you want to continue?" };
 						setDisable(true);
-						CofferDialog discardDialog = new CofferDialog(CofferPasswordDisplayFrame.this, true, "Discard Confirmation", msgs,
-								CofferDialog.YES_NO_OPTIONS);
+						CofferDialog discardDialog = new CofferDialog(CofferPasswordDisplayFrame.this, true, "Discard Confirmation", msgs, CofferDialog.YES_NO_OPTIONS);
 						setDisable(false);
 						if (discardDialog.selectedOption == CofferDialog.YES_OPTION) {
 							if (titleEdited)
@@ -258,7 +165,7 @@ public class CofferPasswordDisplayFrame extends JDialog {
 			public void mouseClicked(MouseEvent e) {
 				try {
 					focusGrab.grabFocus();
-					defaultStatus = getStatus();
+					defaultStatus = CofferPasswordDisplayFrame.this.getStatus();
 
 					String title = titleBlank.getText().trim();
 					String url = urlBlank.getText().trim();
@@ -328,38 +235,9 @@ public class CofferPasswordDisplayFrame extends JDialog {
 
 		contentPanel.add(submit);
 
-		popupFrame.add(contentPanel, BorderLayout.CENTER);
+		setContentPane(contentPanel);
 
-		frmContent.add(popupFrame);
-
-		CofferPasswordDisplayFrame.this.setContentPane(frmContent);
-
-		setDefaultCloseOperation(JDialog.DISPOSE_ON_CLOSE);
-		getContentPane().setLayout(null);
-
-		lblStatus = new JLabel(defaultStatus);
-		lblStatus.setForeground(CofferReferences.CofferVeryLightGrey);
-		lblStatus.setBorder(new EmptyBorder(0, 20, 0, 0));
-		lblStatus.setPreferredSize(new Dimension(frameWidth, 20));
-		lblStatus.setFont(CofferReferences.Comfortaa_Italic_13);
-
-		popupFrame.add(lblStatus, BorderLayout.SOUTH);
-		setLocationRelativeTo(null);
-		setModal(true);
-		setResizable(false);
-		setUndecorated(true);
 		setVisible(true);
 	}
 
-	public static void setDisable(boolean flag) {
-		disablePanel.setVisible(flag);
-	}
-
-	protected void setStatus(String string) {
-		lblStatus.setText(string);
-	}
-
-	protected String getStatus() {
-		return lblStatus.getText();
-	}
 }

@@ -10,6 +10,10 @@ import javax.swing.JPanel;
 import javax.swing.SwingConstants;
 import javax.swing.border.EmptyBorder;
 
+import com.avk.coffer.components.CofferButton;
+import com.avk.coffer.components.CofferPasswordField;
+import com.avk.coffer.components.CofferTextField;
+
 @SuppressWarnings("serial")
 public class AddEntryPage extends JPanel {
 	private static CofferTextField titleField, usernameField, urlField;
@@ -25,6 +29,18 @@ public class AddEntryPage extends JPanel {
 		setPreferredSize(new Dimension(pageWidth, pageHeight));
 		setOpaque(false);
 		setLayout(null);
+
+		focusGrab = new JButton("");
+		focusGrab.setBounds(0, 0, 0, 0);
+		focusGrab.grabFocus();
+		add(focusGrab);
+
+		JLabel lblTitle = new JLabel("Password Registry");
+		lblTitle.setBorder(new EmptyBorder(0, 10, 0, 0));
+		lblTitle.setFont(CofferReferences.Comfortaa_Bold_Italic_20);
+		lblTitle.setForeground(CofferReferences.CofferBlue);
+		lblTitle.setBounds(50, 25, 300, 50);
+		add(lblTitle);
 
 		titleField = new CofferTextField("Title", null);
 		titleField.setBounds(((pageWidth - 320) / 2), 100, 320, 40);
@@ -42,13 +58,6 @@ public class AddEntryPage extends JPanel {
 				Coffer.setStatus(defaultStatus);
 			}
 		});
-
-		JLabel lblTitle = new JLabel("Password Registry");
-		lblTitle.setBorder(new EmptyBorder(0, 10, 0, 0));
-		lblTitle.setFont(CofferReferences.Comfortaa_Bold_Italic_20);
-		lblTitle.setForeground(CofferReferences.CofferBlue);
-		lblTitle.setBounds(50, 25, 300, 50);
-		add(lblTitle);
 		add(titleField);
 
 		urlField = new CofferTextField("URL", null);
@@ -211,11 +220,6 @@ public class AddEntryPage extends JPanel {
 			}
 		});
 		add(lblClear);
-
-		focusGrab = new JButton("");
-		focusGrab.setBounds(0, 0, 0, 0);
-		focusGrab.grabFocus();
-		add(focusGrab);
 
 	}
 }

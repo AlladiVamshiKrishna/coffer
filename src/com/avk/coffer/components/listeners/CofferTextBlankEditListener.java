@@ -1,4 +1,4 @@
-package com.avk.coffer;
+package com.avk.coffer.components.listeners;
 
 public interface CofferTextBlankEditListener {
 	public void onValueChange();

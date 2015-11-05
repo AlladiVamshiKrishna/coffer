@@ -1,4 +1,4 @@
-package com.avk.coffer;
+package com.avk.coffer.components;
 
 import java.awt.BorderLayout;
 import java.awt.Dimension;
@@ -9,6 +9,9 @@ import java.util.ArrayList;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.SwingConstants;
+
+import com.avk.coffer.CofferReferences;
+import com.avk.coffer.components.listeners.CofferToggleSwitchListener;
 
 @SuppressWarnings("serial")
 public class CofferToggleSwitch extends JPanel {

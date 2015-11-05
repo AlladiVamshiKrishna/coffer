@@ -1,4 +1,4 @@
-package com.avk.coffer;
+package com.avk.coffer.components;
 
 import java.awt.Color;
 import java.awt.Dimension;
@@ -9,6 +9,8 @@ import java.awt.Cursor;
 import javax.swing.Icon;
 import javax.swing.JLabel;
 import javax.swing.border.MatteBorder;
+
+import com.avk.coffer.CofferReferences;
 
 @SuppressWarnings("serial")
 public class CofferTabLabel extends JLabel {

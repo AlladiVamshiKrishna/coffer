@@ -11,6 +11,8 @@ import java.util.Map.Entry;
 import javax.swing.JPanel;
 import javax.swing.border.MatteBorder;
 
+import com.avk.coffer.components.CofferTabLabel;
+
 @SuppressWarnings("serial")
 public class DashBoard extends JPanel {
 
